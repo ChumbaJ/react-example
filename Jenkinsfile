@@ -48,7 +48,7 @@ pipeline {
                         parameters: [choice(name: 'ENV', choices: ['dev', 'staging', 'prod'])]
                     )
 
-                    env.ENV = selectedEnv()
+                    env.ENV = selectedEnv
 
                     gv.deploy()
                     echo "deploying as ${env.ENV}"
