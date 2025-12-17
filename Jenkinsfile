@@ -20,7 +20,7 @@ pipeline {
                                   usernameVariable: 'USER',
                                   passwordVariable: 'PASS')]) {
                         sh "docker build -t chumbaj13/myrepo:react-app-2.0 ."
-                        sh "echo ${PASS} | docker login -u ${USER} -p --password-stdin"
+                        sh 'echo "${PASS}" | docker login -u "${USER}" -p --password-stdin'
                         sh "docker push chumbaj13/myrepo:react-app-2.0"
                     }
                 }
