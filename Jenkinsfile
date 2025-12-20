@@ -51,16 +51,13 @@ pipeline {
                 script {
                     echo "deploying the application..."
                     sshagent(['ec2-server']) {
-
-                            // docker rm -f my-app || true
-                            // docker run -d -p 80:80 --name my-app --restart=always chumbaj13/myrepo:${DEV_TAG}
-
+                        
                         def DockerCmd = """
-
-                            echo "HELLO FROM JENKINS - ${DEV_TAG}" > jenkins.txt
+                            docker rm -f my-app || true
+                            docker run -d -p 80:80 --name my-app --restart=always chumbaj13/myrepo:${DEV_TAG}
                         """.trim()
 
-                        sh "ssh -o StrictHostKeyChecking=no ec2-user@3.127.40.112 ${DockerCmd}"
+                        sh "ssh -o StrictHostKeyChecking=no ec2-user@3.127.40.112 '${DockerCmd}'"
                     }
                 }
             }
