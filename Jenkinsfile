@@ -51,8 +51,11 @@ pipeline {
                 script {
                     echo "deploying the application..."
                     sshagent(['ec2-server']) {
-                        def DockerCmd = "docker run -d -p 80:80 chumbaj13/myrepo:${DEV_TAG}"
-                        sh "ssh -o ec2-user@3.127.40.112 ${DockerCmd}"
+                        def DockerCmd = """
+                            docker rm -f my-app || true
+                            docker run -d -p 80:80 --name my-app --restart=always chumbaj13/myrepo:${DEV_TAG}
+                        """
+                        sh "ssh -o StrictHostKeyChecking=no ec2-user@3.127.40.112 ${DockerCmd}"
                     }
                 }
             }
