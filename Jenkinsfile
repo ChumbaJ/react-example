@@ -54,7 +54,8 @@ pipeline {
                         def DockerCmd = """
                             docker rm -f my-app || true
                             docker run -d -p 80:80 --name my-app --restart=always chumbaj13/myrepo:${DEV_TAG}
-                        """
+                            echo "HELLO FROM JENKINS - ${DEV_TAG}" > jenkins.txt
+                        """.trim()
                         sh "ssh -o StrictHostKeyChecking=no ec2-user@3.127.40.112 ${DockerCmd}"
                     }
                 }
