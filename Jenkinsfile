@@ -51,7 +51,7 @@ pipeline {
                 script {
                     echo "deploying the application..."
                     sshagent {
-                        def DockerCmd = "docker run chumbaj13/myrepo:${DEV_TAG}"
+                        def DockerCmd = "docker run -d -p 80:80 chumbaj13/myrepo:${DEV_TAG}"
                         sh "ssh -o ec2-user@3.127.40.112 ${DockerCmd}"
                     }
                 }
